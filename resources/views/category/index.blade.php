@@ -24,6 +24,11 @@
 @section('content')
 <div class="container">
     <div class="card mt-3">
+        <div class="d-inline mt-3 ml-3">
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#ModalCategory">
+                New
+            </button>
+        </div>
         <div class="card-body">
             <table class="table">
                 <thead>
@@ -51,6 +56,34 @@
                 </tbody>
             </table>
             {{ $category->links() }}
+        </div>
+    </div>
+</div>
+
+<!-- Modal Category-->
+<div class="modal fade" id="ModalCategory" tabindex="-1" role="dialog" aria-labelledby="ModalCategoryLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalCategoryLabel">New Category</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('category.store') }}" method="post">
+                    @csrf
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" name="name">
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="reset" class="btn btn-danger">Reset</button>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+            </form>
         </div>
     </div>
 </div>
