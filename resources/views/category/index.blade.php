@@ -51,7 +51,11 @@
                         <td>
                             <div class="d-inline">
                                 <a href="{{ url('/category'.'/'.$cat->id) }}" class="btn btn-info">Update</a>
-                                <a href="#" class="btn btn-danger">Delete</a>
+                                <form action="{{ url ('category'.'/'.$cat->id) }}" method="POST">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
                             </div>
                         </td>
                     </tr>

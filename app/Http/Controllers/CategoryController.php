@@ -36,4 +36,10 @@ class CategoryController extends Controller
         $category->update(['name' => $categoryRequest->name]);
         return redirect('/category')->with('success', 'data has been updated');
     }
+
+    public function destroy($id)
+    {
+        Category::find($id)->delete();
+        return redirect('/category')->with('success', 'Data has been deleted');
+    }
 }
