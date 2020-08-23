@@ -16,14 +16,24 @@ class CategoryController extends Controller
 
     public function store(CategoryRequest $categoryRequest)
     {
-
         $data = [
             'name' => $categoryRequest->name,
             'slug' => Str::slug($categoryRequest->name)
         ];
-
         Category::create($data);
-
         return redirect('/category')->with('success', 'Data has been added');
+    }
+
+    public function show($id)
+    {
+        $category = Category::find($id);
+        return view('category.edit', compact('category'));
+    }
+
+    public function update(CategoryRequest $categoryRequest, $id)
+    {
+        $category =  Category::find($id);
+        $category->update(['name' => $categoryRequest->name]);
+        return redirect('/category')->with('success', 'data has been updated');
     }
 }

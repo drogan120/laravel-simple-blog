@@ -1,5 +1,8 @@
 @extends('templates.master')
 @section('title','Category')
+@section('head')
+<link rel="stylesheet" href="{{ asset('sufee-admin\plugin\sweetalert2-theme-bootstrap-4\bootstrap-4.min.css') }}">
+@endsection
 @section('breadcrumbs')
 <div class="breadcrumbs ">
     <div class="col-sm-4">
@@ -47,7 +50,7 @@
                         <td>{{ $cat->slug }}</td>
                         <td>
                             <div class="d-inline">
-                                <a href="#" class="btn btn-info">Update</a>
+                                <a href="{{ url('/category'.'/'.$cat->id) }}" class="btn btn-info">Update</a>
                                 <a href="#" class="btn btn-danger">Delete</a>
                             </div>
                         </td>
@@ -87,4 +90,21 @@
         </div>
     </div>
 </div>
+@endsection
+@section('foot')
+<script src="{{ asset('sufee-admin\plugin\sweetalert2\sweetalert2.min.js') }}"></script>
+<script src="{{ asset('sufee-admin\plugin\toastr\toastr.min.js') }}"></script>
+<script>
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000
+});
+</script>
+@if (session()->has('success'))
+<script>
+    Swal.fire('Success !','{{session('success')}}','success');
+</script>
+@endif
 @endsection
