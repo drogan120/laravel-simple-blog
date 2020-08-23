@@ -26,20 +26,20 @@ class CategoryController extends Controller
 
     public function show($id)
     {
-        $category = Category::find($id);
+        $category = Category::findOrFail($id);
         return view('category.edit', compact('category'));
     }
 
     public function update(CategoryRequest $categoryRequest, $id)
     {
-        $category =  Category::find($id);
+        $category =  Category::findOrFail($id);
         $category->update(['name' => $categoryRequest->name]);
         return redirect('/category')->with('success', 'data has been updated');
     }
 
     public function destroy($id)
     {
-        Category::find($id)->delete();
+        Category::findOrFail($id)->delete();
         return redirect('/category')->with('success', 'Data has been deleted');
     }
 }
