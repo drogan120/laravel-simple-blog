@@ -31,4 +31,29 @@ class PostController extends Controller
         Post::create($data);
         return redirect('/post/create')->with('success', 'Post has been created');
     }
+
+    public function show($id)
+    {
+        $post  =  Post::findOrFail($id);
+        $categories = \App\Models\Category::all();
+        return view('post.edit', compact('post', 'categories'));
+    }
+
+    public function update(PostRequest $postRequest, $id)
+    {
+        $data = [
+            'title' => $postRequest->title,
+            'category_id' => $postRequest->category,
+            'content' => $postRequest->content,
+        ];
+        $post = Post::find($id);
+        $post->update($data);
+        return redirect('/post')->with('success', 'post has been updated');
+    }
+
+    public function destroy($id)
+    {
+        Post::findOrFail($id)->delete();
+        return redirect('/post')->with('success', 'post has been deleted');
+    }
 }
