@@ -40,7 +40,7 @@ class TagController extends Controller
 
     public function destroy($id)
     {
-        $tag = Tag::findOrFailOrFail($id)->delete();
+        Tag::findOrFail($id)->delete();
         return redirect('/tag')->with('success', 'Data has been deleted');
     }
 }
