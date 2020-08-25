@@ -41,6 +41,7 @@
                         <th>Title</th>
                         <th>Slug</th>
                         <th>Category</th>
+                        <th>Thumbnail</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -51,6 +52,8 @@
                         <td>{{ $post->title }}</td>
                         <td>{{ $post->slug }}</td>
                         <td>{{ $post->category->name }}</td>
+                        <td><img src="{{ asset($post->thumbnail) }}" alt="{{$post->thumbnail}}" class="img-fluid"
+                                width="100" height="100"></td>
                         <td>
                             <div class="d-inline">
                                 <a href="{{ url('/post'.'/'.$post->id) }}" class="btn btn-info">Update</a>

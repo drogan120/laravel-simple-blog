@@ -22,12 +22,18 @@ class PostController extends Controller
 
     public function store(PostRequest $postRequest)
     {
+        $thumb =  $postRequest->thumbnail;
+        $thumbnail = time() . $thumb->getClientOriginalName();
+
         $data = [
             'category_id' => $postRequest->category,
             'title' => $postRequest->title,
             'slug'  => Str::slug($postRequest->title),
             'content'  => $postRequest->content,
+            'thumbnail'  => 'uploads/posts/' . $thumbnail,
         ];
+        $thumb->move('uploads/posts/', $thumbnail);
+
         Post::create($data);
         return redirect('/post/create')->with('success', 'Post has been created');
     }
@@ -41,11 +47,17 @@ class PostController extends Controller
 
     public function update(PostRequest $postRequest, $id)
     {
+        $thumb =  $postRequest->thumbnail;
+        $thumbnail = time() . $thumb->getClientOriginalName();
+
         $data = [
             'title' => $postRequest->title,
             'category_id' => $postRequest->category,
             'content' => $postRequest->content,
+            'thumbnail'  => 'uploads/posts/' . $thumbnail,
         ];
+
+        $thumb->move('uploads/posts/', $thumbnail);
         $post = Post::find($id);
         $post->update($data);
         return redirect('/post')->with('success', 'post has been updated');
