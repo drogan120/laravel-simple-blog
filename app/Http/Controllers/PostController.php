@@ -17,11 +17,14 @@ class PostController extends Controller
     public function create()
     {
         $categories =  \App\Models\Category::all();
-        return view('post.new', compact('categories'));
+        $tags = \App\Models\Tag::all();
+        return view('post.new', compact('categories', 'tags'));
     }
 
     public function store(PostRequest $postRequest)
     {
+
+
         $thumb =  $postRequest->thumbnail;
         $thumbnail = time() . $thumb->getClientOriginalName();
 
@@ -34,7 +37,8 @@ class PostController extends Controller
         ];
         $thumb->move('uploads/posts/', $thumbnail);
 
-        Post::create($data);
+        $post = Post::create($data);
+        $post->tag()->attach($postRequest->tags);
         return redirect('/post/create')->with('success', 'Post has been created');
     }
 
