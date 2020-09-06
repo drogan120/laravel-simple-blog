@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,13 +15,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('templates.master');
+    return view('welcome');
 });
 
-Route::resource('category', 'CategoryController');
-Route::resource('tag', 'TagController');
-Route::resource('post', 'PostController');
+Route::group(['middleware' => 'auth'], function () {
+    Route::resource('category', 'CategoryController');
+    Route::resource('tag', 'TagController');
+    Route::resource('post', 'PostController');
+    Route::get('/home', 'HomeController@index')->name('home');
+});
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
